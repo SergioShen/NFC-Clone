@@ -2,7 +2,7 @@
 trap 'rm -f "$TMP_FILE"' EXIT
 
 function enter_to_continue() {
-    read -p "Press [enter] to continue."
+    read -p "Press [enter] to continue..."
 }
 
 check_return_value() {
@@ -14,12 +14,12 @@ check_return_value() {
 }
 
 clear
-echo "Welcome to NFC card simulation script!"
 echo "    _   ______________     ________               "
 echo "   / | / / ____/ ____/    / ____/ /___  ____  ___ " 
 echo "  /  |/ / /_  / /  ______/ /   / / __ \\/ __ \\/ _ \\"
 echo " / /|  / __/ / /__/_____/ /___/ / /_/ / / / /  __/"
 echo "/_/ |_/_/    \____/     \____/_/\\____/_/ /_/\\___/ "
+echo ""
 echo "Please connect your PN532 board to this computer and prepare an empty UID card."
 enter_to_continue
 
