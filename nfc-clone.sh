@@ -1,5 +1,5 @@
 #!/bin/bash
-trap 'rm -f "$TMP_FILE"' EXIT
+trap 'rm -f "$TMP_FILE" "$EMPTY_FILE"' EXIT
 
 function enter_to_continue() {
     read -p "Press [enter] to continue..."
@@ -43,8 +43,10 @@ clear
 echo "== Step 2: Remove the original card and put your empty UID card on the PN532 board."
 enter_to_continue
 
-CARD_UID=`hexdump -n 4 -e  '4 1 "%02x"' $TMP_FILE`
-nfc-mfsetuid $CARD_UID
+EMPTY_FILE=`mktemp tmp.XXXXXXXXXXXXXXXX`
+head -c 16 $TMP_FILE > $EMPTY_FILE
+cat .empty.mfd >> $EMPTY_FILE
+nfc-mfclassic W a $EMPTY_FILE
 check_return_value "cannot write UID of the empty card"
 
 # Write real card
